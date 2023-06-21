@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTodo } from "./redux/modules/todo";
 import { deleteTodo } from "./redux/modules/todo";
 import { updateTodo } from "./redux/modules/todo";
+import Header from "./components/header/Header";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,9 +76,7 @@ function App() {
     <>
       <GlobalStyle />
       <StLayout>
-        <StHeader>
-          <div>My Todo List</div> <div>React</div>
-        </StHeader>
+        <Header />
         <div>
           <StForm onSubmit={onSubmitHandler}>
             <StInputGroup>
@@ -170,15 +169,6 @@ const StLayout = styled.div`
   max-width: 1200px;
   min-width: 800px;
   margin: 0 auto;
-`;
-
-const StHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 30px;
-  border: 1px solid rgba(128, 128, 128, 0.293);
-  padding: 5px 20px;
 `;
 
 const StForm = styled.form`
