@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import uuid from "react-uuid";
+import styled from "styled-components";
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
   console.log(uuid());
@@ -55,97 +57,176 @@ function App() {
   };
 
   return (
-    <div className="layout">
-      <header className="app-title">
-        <div>My Todo List</div> <div>React</div>
-      </header>
-      <div>
-        <form className="form" onSubmit={onSubmitHandler}>
-          <div className="input-group">
-            <b>제목</b>{" "}
-            <input
-              className="input-style"
-              type="text"
-              value={title}
-              onChange={titleChangeHandler}
-            />
-            <b>내용</b>{" "}
-            <input
-              className="input-style"
-              type="text"
-              value={contents}
-              onChange={contentsChangeHandler}
-            />
-          </div>
-          <button className="add-button">추가하기</button>
-        </form>
-      </div>
-      <div>
-        {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
-        <h2>📌Working</h2>
-        <div className="list-wrap">
-          {todos
-            .filter((work) => {
-              return work.isDone === false;
-            })
-            .map((todo) => {
-              return (
-                <div className="list-style" key={todo.id}>
-                  <p>{todo.title}</p>
-                  <p>{todo.contents}</p>
-                  <div className="bth-group">
-                    <button
-                      className="remove-btn"
-                      onClick={() => deleteButtonHandler(todo)}
-                    >
-                      삭제
-                    </button>
-                    <button
-                      className="isDone-btn"
-                      onClick={() => clickChangeButtonHandler(todo)}
-                    >
-                      {todo.isDone ? "취소" : "완료"}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+    <>
+      <GlobalStyle />
+      <StLayout>
+        <StHeader>
+          <div>My Todo List</div> <div>React</div>
+        </StHeader>
+        <div>
+          <StForm onSubmit={onSubmitHandler}>
+            <StInputGroup>
+              <b>제목</b>{" "}
+              <StInputStyle
+                type="text"
+                value={title}
+                onChange={titleChangeHandler}
+              />
+              <b>내용</b>{" "}
+              <StInputStyle
+                type="text"
+                value={contents}
+                onChange={contentsChangeHandler}
+              />
+            </StInputGroup>
+            <StAddButton>추가하기</StAddButton>
+          </StForm>
         </div>
-      </div>
-      <div>
-        {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
-        <h2>✅Done</h2>
-        <div className="list-wrap">
-          {todos
-            .filter((work) => {
-              return work.isDone === true;
-            })
-            .map((todo) => {
-              return (
-                <div className="list-style" key={todo.id}>
-                  <p>{todo.title}</p>
-                  <p>{todo.contents}</p>
-                  <div className="bth-group">
-                    <button
-                      className="remove-btn"
-                      onClick={() => deleteButtonHandler(todo)}
-                    >
-                      삭제
-                    </button>
-                    <button
-                      className="isDone-btn"
-                      onClick={() => clickChangeButtonHandler(todo)}
-                    >
-                      취소
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+        <div>
+          {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
+          <h2>📌Working</h2>
+          <StListWrap>
+            {todos
+              .filter((work) => {
+                return work.isDone === false;
+              })
+              .map((todo) => {
+                return (
+                  <StListStyle key={todo.id}>
+                    <h2>{todo.title}</h2>
+                    <div>{todo.contents}</div>
+                    <StBtnGroup>
+                      <StButton
+                        borderColor="red"
+                        onClick={() => deleteButtonHandler(todo)}
+                      >
+                        삭제하기
+                      </StButton>
+                      <StButton
+                        borderColor="green"
+                        onClick={() => clickChangeButtonHandler(todo)}
+                      >
+                        {todo.isDone ? "취소" : "완료"}
+                      </StButton>
+                    </StBtnGroup>
+                  </StListStyle>
+                );
+              })}
+          </StListWrap>
         </div>
-      </div>
-    </div>
+        <div>
+          {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
+          <h2>✅Done</h2>
+          <StListWrap>
+            {todos
+              .filter((work) => {
+                return work.isDone === true;
+              })
+              .map((todo) => {
+                return (
+                  <StListStyle key={todo.id}>
+                    <h2>{todo.title}</h2>
+                    <div>{todo.contents}</div>
+                    <StBtnGroup>
+                      <StButton
+                        borderColor="red"
+                        onClick={() => deleteButtonHandler(todo)}
+                      >
+                        삭제하기
+                      </StButton>
+                      <StButton
+                        borderColor="green"
+                        onClick={() => clickChangeButtonHandler(todo)}
+                      >
+                        취소
+                      </StButton>
+                    </StBtnGroup>
+                  </StListStyle>
+                );
+              })}
+          </StListWrap>
+        </div>
+      </StLayout>
+    </>
   );
 }
 
 export default App;
+
+const StLayout = styled.div`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+`;
+
+const StHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  border: 1px solid rgba(128, 128, 128, 0.293);
+  padding: 5px 20px;
+`;
+
+const StForm = styled.form`
+  background-color: rgba(231, 230, 230, 0.512);
+  border-radius: 20px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 30px 20px 30px 20px;
+`;
+
+const StInputGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+`;
+
+const StInputStyle = styled.input`
+  height: 30px;
+  border: 1px solid rgba(128, 128, 128, 0.293);
+  border-radius: 10px;
+  width: 185px;
+  padding-left: 15px;
+`;
+
+const StAddButton = styled.button`
+  border-radius: 10px;
+  border: 1px solid;
+  background-color: green;
+  color: white;
+  width: 100px;
+  height: 35px;
+`;
+
+const StListWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+`;
+
+const StListStyle = styled.div`
+  width: 250px;
+  height: 180px;
+  border: 4px solid green;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 15px;
+`;
+
+const StBtnGroup = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+`;
+
+const StButton = styled.button`
+  border: 2px solid ${(props) => props.borderColor};
+  background-color: white;
+  width: 120px;
+  height: 35px;
+`;
