@@ -1,0 +1,4 @@
+redux 폴더: 리덕스 관련코드 몰아넣기
+config 폴더: 리덕스 설정 관련 파일 전부
+configStore.js: 중앙 state 관리소 
+modules 폴더: state의 그룹
