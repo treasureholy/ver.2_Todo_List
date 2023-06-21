@@ -3,9 +3,18 @@ import "./App.css";
 import uuid from "react-uuid";
 import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
+import { useDispatch, useSelector } from "react-redux";
+import { createTodo } from "./redux/modules/todo";
+import { deleteTodo } from "./redux/modules/todo";
+import { updateTodo } from "./redux/modules/todo";
 
 function App() {
-  console.log(uuid());
+  const dispatch = useDispatch();
+  const todoRedux = useSelector((state) => {
+    return state.todo.todoList;
+  });
+  // console.log(todoRedux);
+  // console.log(uuid());
   const initialState = [
     { id: uuid(), title: "오늘 할일", contents: "리액트 공부하기", isDone: false },
     { id: uuid(), title: "오늘 할일", contents: "마트가서 장 보기", isDone: true },
@@ -27,33 +36,39 @@ function App() {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    const newTodo = {
+    const addTodo = {
       id: uuid(),
       title,
       contents,
       isDone: false,
     };
-    setTodos([...todos, newTodo]);
+    // setTodos([...todos, newTodo]);
+    dispatch(createTodo(addTodo));
     setTitle("");
     setContents("");
   };
 
   //삭제버튼
   const deleteButtonHandler = (todo) => {
-    const newList = todos.filter((filterdTodo) => filterdTodo.id !== todo.id);
-    setTodos(newList);
+    // const newList = todos.filter((filterdTodo) => filterdTodo.id !== todo.id);
+    const newList = todoRedux.filter((filterdTodo) => filterdTodo.id !== todo.id);
+    // setTodos(newList);
+    dispatch(deleteTodo(newList));
+    // console.log(newList);
   };
 
   //완료,취소버튼
   const clickChangeButtonHandler = (todo) => {
-    const newTodos = todos.map((item) => {
+    // const newTodos = todos.map((item) => {
+    const newTodos = todoRedux.map((item) => {
       if (item.id === todo.id) {
         return { ...item, isDone: !item.isDone };
       } else {
         return item;
       }
     });
-    setTodos(newTodos);
+    // setTodos(newTodos);
+    dispatch(updateTodo(newTodos));
   };
 
   return (
@@ -83,10 +98,9 @@ function App() {
           </StForm>
         </div>
         <div>
-          {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
           <h2>📌Working</h2>
           <StListWrap>
-            {todos
+            {todoRedux
               .filter((work) => {
                 return work.isDone === false;
               })
@@ -97,13 +111,13 @@ function App() {
                     <div>{todo.contents}</div>
                     <StBtnGroup>
                       <StButton
-                        borderColor="red"
+                        bordercolor="red"
                         onClick={() => deleteButtonHandler(todo)}
                       >
                         삭제하기
                       </StButton>
                       <StButton
-                        borderColor="green"
+                        bordercolor="green"
                         onClick={() => clickChangeButtonHandler(todo)}
                       >
                         {todo.isDone ? "취소" : "완료"}
@@ -115,10 +129,9 @@ function App() {
           </StListWrap>
         </div>
         <div>
-          {/* <h2>{isDone ? "✅Done" : "📌Working"}</h2> */}
           <h2>✅Done</h2>
           <StListWrap>
-            {todos
+            {todoRedux
               .filter((work) => {
                 return work.isDone === true;
               })
@@ -129,13 +142,13 @@ function App() {
                     <div>{todo.contents}</div>
                     <StBtnGroup>
                       <StButton
-                        borderColor="red"
+                        bordercolor="red"
                         onClick={() => deleteButtonHandler(todo)}
                       >
                         삭제하기
                       </StButton>
                       <StButton
-                        borderColor="green"
+                        bordercolor="green"
                         onClick={() => clickChangeButtonHandler(todo)}
                       >
                         취소
@@ -225,7 +238,7 @@ const StBtnGroup = styled.div`
 `;
 
 const StButton = styled.button`
-  border: 2px solid ${(props) => props.borderColor};
+  border: 2px solid ${(props) => props.bordercolor};
   background-color: white;
   width: 120px;
   height: 35px;
