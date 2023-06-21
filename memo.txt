@@ -2,3 +2,24 @@ redux 폴더: 리덕스 관련코드 몰아넣기
 config 폴더: 리덕스 설정 관련 파일 전부
 configStore.js: 중앙 state 관리소 
 modules 폴더: state의 그룹
+
+<순서>
+1. 리덕스 패키지 설치
+2. 폴더구조 생성
+ src폴더 > redux폴더 >config, modules 폴더
+3.파일 생성
+  ㆍconfig 폴더 > configStore.js (중앙 state 관리소)
+  ㆍmodules 폴더 > todo.js
+4.
+
+<TODOLIST 로직>
+
+1. header, main, footer 영역 나누기 
+2. main에 input영역,  list영역 나누기  
+4. 기존 리스트 initialState 만들기 
+5. 만든 state를 리스트영역에 출력하기
+6. input영역을 추가 후 값을 입력해 리스트에 추가하기(state 변경)
+7. 삭제버튼 만들기
+8. TODOLIST ,DONELIST 추가해서 나누기
+9. 완료,취소버튼 만들기
+10. 계속해서 반복되는 부분을 컴포넌트화하기
