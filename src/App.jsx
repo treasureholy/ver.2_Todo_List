@@ -1,19 +1,8 @@
-import "./App.css";
-import Layout from "./components/Layout";
-import Header from "./components/Header";
-import Form from "./components/Form";
-import Content from "./components/Content";
+import React from "react";
+import Router from "./shared/Router";
 
 function App() {
-  return (
-    <>
-      <Layout>
-        <Header />
-        <Form />
-        <Content />
-      </Layout>
-    </>
-  );
+  return <Router />;
 }
 
 export default App;

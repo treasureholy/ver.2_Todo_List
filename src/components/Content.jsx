@@ -4,8 +4,10 @@ import GlobalStyle from "../GlobalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodo } from "../redux/modules/todo";
 import { updateTodo } from "../redux/modules/todo";
+import { Link } from "react-router-dom";
 
 function Content() {
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const todoRedux = useSelector((state) => {
     return state.todo.todoList;
@@ -47,6 +49,7 @@ function Content() {
             .map((todo) => {
               return (
                 <StListStyle key={todo.id}>
+                  <Link to={`/about/${todo.id}`}>상세보기</Link>
                   <h2>{todo.title}</h2>
                   <div>{todo.contents}</div>
                   <StBtnGroup>
@@ -78,6 +81,7 @@ function Content() {
             .map((todo) => {
               return (
                 <StListStyle key={todo.id}>
+                  <Link to={`/about/${todo.id}`}>상세보기</Link>
                   <h2>{todo.title}</h2>
                   <div>{todo.contents}</div>
                   <StBtnGroup>
@@ -120,6 +124,14 @@ const StListStyle = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 0px 15px;
+`;
+
+const StDetailBtn = styled.button`
+  width: 70px;
+  background-color: white;
+  border: white;
+  color: green;
+  font-weight: bold;
 `;
 
 const StBtnGroup = styled.div`
