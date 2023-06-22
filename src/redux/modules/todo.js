@@ -37,9 +37,6 @@ export const updateTodo = (newTodos) => {
 const todo = (state = initialstate, action) => {
   switch (action.type) {
     case CREATETODO:
-      // console.log(state);
-      // console.log("action", action);
-      // console.log("action.payload", action.payload);
       return {
         todoList: [...state.todoList, action.payload],
       };
