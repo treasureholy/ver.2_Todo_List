@@ -1,6 +1,6 @@
 # :pencil:My Todo List
 
-Create React App Project 23.06.12~.6.15
+Create React App Project 23.06.19~.6.22
 
 ## 1.프로젝트 소개
 
